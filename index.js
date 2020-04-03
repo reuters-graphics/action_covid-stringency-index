@@ -2,8 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const xlsx = require('node-xlsx');
-
-// const workSheetsFromFile = (`${__dirname}/OxCGRT_Download_latest_data.xlsx`);
+const sanitiseDate = require('./lib/cleanDates.js');
 
 const SOURCE_PATH = path.resolve(__dirname, 'data/latest.xlsx');
 async function downloadLatestXLSX() {
@@ -35,7 +34,7 @@ const parseXLSX = async () => {
     return {
       countryName: e[0],
       countryISO: e[1],
-      date: e[2],
+      date: sanitiseDate(e[2]),
       index: e[e.length - 2],
     };
   });
