@@ -45,17 +45,31 @@ const parseXLSX = async () => {
     })
     .filter((e) => e.countryName !== 'CountryName');
 
+  const uniqueDates = [...new Set(simplified.map((e) => e.date))];
+
+  const data = { series: uniqueDates, data: {} };
+
   const groupByCountry = d3
     .nest()
     .key((d) => d.countryName)
     .entries(simplified);
 
-  writeJSONLocally(
-    groupByCountry,
-    path.resolve(__dirname, 'data/latest_parsed.json')
-  );
+  for (let i = 0; i < groupByCountry.length; i++) {
+    const country = groupByCountry[i].key;
+    const countryData = groupByCountry[i].values;
 
-  await publishJson(groupByCountry, 'TKTKTK.json');
+    const simpleCountryData = data.series.map((e) => {
+      const match = countryData.find((d) => d.date === e);
+      if (match) {
+        return match.index;
+      }
+    });
+    data.data[country] = simpleCountryData;
+  }
+
+  writeJSONLocally(data, path.resolve(__dirname, 'data/latest_parsed.json'));
+
+  await publishJson(data, 'latest.json');
 };
 
 const writeJSONLocally = (data, location) =>
