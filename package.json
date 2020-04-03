@@ -1,0 +1,16 @@
+{
+  "name": "action_covid-stringency-response",
+  "version": "0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "main": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "node-xlsx": "^0.15.0"
+  }
+}
