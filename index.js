@@ -5,7 +5,7 @@ const xlsx = require('node-xlsx');
 const d3 = Object.assign({}, require('d3-collection'));
 
 //
-const publishJson = require('./lib/publishJson');
+const publishJson = require('./lib/publishJSON.js');
 const sanitiseDate = require('./lib/cleanDates.js');
 
 const SOURCE_PATH = path.resolve(__dirname, 'data/latest.xlsx');
